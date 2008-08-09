@@ -1,0 +1,10 @@
+texture = skydome.tga
+
+resolution.horizontal = 16
+resolution.vertical = 8
+
+texture.percentage = 1.0
+dome.percentage  = 2.0
+
+dome.center = v(0.0, 0.0, 0.0)
+dome.radius = 10000.0

@@ -1,0 +1,37 @@
+# OpenEngine Distribution.
+# This file describes the default OpenEngine distribution.
+
+# main repository
+darcs / http://openengine.dk/code/openengine
+
+# SoundPlayer project
+darcs /projects/SoundPark http://openengine.dk/code/projects/SoundPark
+
+# standard set of extensions
+darcs /extensions/SDL               http://openengine.dk/code/extensions/SDL
+darcs /extensions/OpenGLRenderer    http://openengine.dk/code/extensions/OpenGLRenderer
+darcs /extensions/GenericHandlers   http://openengine.dk/code/extensions/GenericHandlers
+darcs /extensions/OpenALSoundSystem http://openengine.dk/code/extensions/OpenALSoundSystem
+darcs /extensions/Shapes            http://openengine.dk/code/branches/Shapes
+darcs /extensions/VorbisResource    http://openengine.dk/code/extensions/VorbisResource
+darcs /extensions/TGAResource       http://openengine.dk/code/extensions/TGAResource
+darcs /extensions/Bindings          http://openengine.dk/code/extensions/Bindings
+darcs /extensions/Sky	            http://openengine.dk/code/extensions/Sky
+darcs /extensions/PropertyList      http://openengine.dk/code/extensions/PropertyList
+
+# windows libraries
+win32 /libraries http://openengine.dk/data/libraries/boost-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/glew-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/sdl-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/dlls-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/openal-win32.zip
+win32 /libraries http://openengine.dk/data/libraries/vorbis-win32.zip
+
+# os x libraries
+
+# linux libraries
+
+# data
+any /projects/SoundPark/data/GregoryTripi22/ogg        http://www.openengine.dk/data/projects/SoundPark/atmos.tar.gz
+
+any /projects/SoundPark/data/Skydome                   http://www.openengine.dk/data/projects/SoundPark/skydome.tga

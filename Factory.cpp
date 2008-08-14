@@ -16,6 +16,7 @@
 #include <Renderers/OpenGL/Renderer.h>
 #include <Renderers/OpenGL/RenderingView.h>
 #include <Renderers/OpenGL/TextureLoader.h>
+#include <Renderers/OpenGL/LightRenderer.h>
 
 #include <Sound/OpenALSoundSystem.h>
 #include <Sound/ISoundSystem.h>
@@ -129,6 +130,7 @@ Factory::Factory() {
     renderer = new Renderer();
     renderer->process.Attach(*(new RenderingView(*viewport)));
     renderer->initialize.Attach(*(new TextureLoader()));
+    renderer->preProcess.Attach(*(new LightRenderer()));
 }
 
 Factory::~Factory() {
@@ -223,18 +225,12 @@ bool Factory::SetupEngine(IGameEngine& engine) {
     engine.AddModule(*h);
     // lighting setup
     TransformationNode* tn2 = new TransformationNode();
-    tn2->Move(0,100,0);
-    PointLightNode* dln = new PointLightNode();
-    //dln->linearAtt = 0.01;
-    //dln->quadAtt = 0.0001;
-    //dln->constAtt = 0.5;
- //    dln->specular = Vector<4,float>(1.0,1.0,1.0,1.0);
-//     dln->diffuse = Vector<4,float>(1.0,1.0,1.0,1.0);
-//     dln->ambient = Vector<4,float>(0.0,0.0,0.0,1.0);
-    tn2->AddNode(dln);
+    tn2->Move(0,200,0);
+    PointLightNode* pln = new PointLightNode();
+    tn2->AddNode(pln);
     root->AddNode(tn2);
     SphereNode* sphere2 = new SphereNode();        
-    dln->AddNode(sphere2);
+    pln->AddNode(sphere2);
 
 
 

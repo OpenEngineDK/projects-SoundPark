@@ -55,7 +55,7 @@ using namespace OpenEngine::Utils;
 
 using OpenEngine::Sky::SkyDome;
 
-class Handler : public IListener<KeyboardEventArg>, public IModule {
+class Handler : public IListener<KeyboardEventArg>, public IListener<ProcessEventArg> {
 private:
     TransformationNode*** spheres;
     int type;
@@ -76,12 +76,10 @@ public:
         }
     }
     
-    void Initialize() {}
-    void Deinitialize() {}
-    bool IsTypeOf(const std::type_info& inf) { return inf == typeid(Handler);}
-    void Process(const float dt, const float percent) {
+    void Handle(ProcessEventArg arg) {
+        float dt = arg.approx / 1000.0;
         if (type == 0) return;
-        float dist;
+        float dist = 0;
         switch (type) {
         case 1: dist = 100; break;
         case 2: dist = 500; break;
@@ -105,11 +103,6 @@ public:
             }
         }
     }
-
-
-    void BindToEventSystem() {
-        IKeyboard::keyEvent.Attach(*this);
-    }
 };
 
 
@@ -128,9 +121,9 @@ Factory::Factory() {
     viewport->SetViewingVolume(frustum);
 
     renderer = new Renderer();
-    renderer->process.Attach(*(new RenderingView(*viewport)));
-    renderer->initialize.Attach(*(new TextureLoader()));
-    renderer->preProcess.Attach(*(new LightRenderer()));
+    renderer->ProcessEvent().Attach(*(new RenderingView(*viewport)));
+    renderer->InitializeEvent().Attach(*(new TextureLoader()));
+    renderer->PreProcessEvent().Attach(*(new LightRenderer()));
 }
 
 Factory::~Factory() {
@@ -140,18 +133,30 @@ Factory::~Factory() {
     delete renderer;
 }
 
-bool Factory::SetupEngine(IGameEngine& engine) {
+bool Factory::SetupEngine(IEngine& engine) {
+    engine.InitializeEvent().Attach(*frame);
+    engine.ProcessEvent().Attach(*frame);
+    engine.DeinitializeEvent().Attach(*frame);
+
+    engine.InitializeEvent().Attach(*renderer);
+    engine.ProcessEvent().Attach(*renderer);
+    engine.DeinitializeEvent().Attach(*renderer);
+
     // Setup input handling
     SDLInput* input = new SDLInput();
-    engine.AddModule(*input);
-
+    engine.InitializeEvent().Attach(*input);
+    engine.ProcessEvent().Attach(*input);
+    engine.DeinitializeEvent().Attach(*input);
 
     // Register the handler as a listener on up and down keyboard events.
-    MoveHandler* move_h = new MoveHandler(*camera);
-    engine.AddModule(*move_h);
-    move_h->BindToEventSystem();
-    QuitHandler* quit_h = new QuitHandler();
-    quit_h->BindToEventSystem();
+    MoveHandler* move_h = new MoveHandler(*camera, *input);
+    input->KeyEvent().Attach(*move_h);
+    engine.InitializeEvent().Attach(*move_h);
+    engine.ProcessEvent().Attach(*move_h);
+    engine.DeinitializeEvent().Attach(*move_h);
+
+    QuitHandler* quit_h = new QuitHandler(engine);
+    input->KeyEvent().Attach(*quit_h);
 
     // Create scene root
     SceneNode* root = new SceneNode();
@@ -167,10 +172,12 @@ bool Factory::SetupEngine(IGameEngine& engine) {
     ResourceManager<ITextureResource>::AddPlugin(new TGAPlugin());
         
     ISoundSystem* openalsmgr = new OpenALSoundSystem(root, camera);
-    engine.AddModule(*openalsmgr);
+    engine.InitializeEvent().Attach(*openalsmgr);
+    engine.ProcessEvent().Attach(*openalsmgr);
+    engine.DeinitializeEvent().Attach(*openalsmgr);
 
     SoundRenderer* sr = new SoundRenderer();
-    renderer->preProcess.Attach(*sr);
+    renderer->PreProcessEvent().Attach(*sr);
     string soundarray[3][3] = {{"Atmosphere Pad 01.ogg","Atmosphere Pad 02.ogg", "Atmosphere Pad 03.ogg"}, 
                                {"Atmosphere Pad 04.ogg", "Atmosphere Pad 05.ogg", "Atmosphere Pad 06.ogg"},
                                {"Atmosphere Pad 07.ogg", "Atmosphere Pad 08.ogg", "Atmosphere Pad 08.ogg"}};
@@ -187,13 +194,13 @@ bool Factory::SetupEngine(IGameEngine& engine) {
         for (int j = 0; j < 3; j++) {
             ISoundResourcePtr soundres = 
                 ResourceManager<ISoundResource>::Create(soundarray[i][j]);
-            IMonoSound* sound = openalsmgr->CreateMonoSound(soundres);
+            IMonoSound* sound = (IMonoSound*)openalsmgr->CreateSound(soundres);
             sound->SetMaxDistance(soundrad);
             sound->SetLooping(true);
             sound->SetGain(10.0);
             //sound->SetMaxGain(20.0);
-            sound->SetMinGain(0.0);
-            sound->SetRolloffFactor(1);
+            //sound->SetMinGain(0.0);
+            //sound->SetRolloffFactor(1);
             //sound->SetReferenceDistance(soundrad);
             // float g = sound->GetGain();
             //                 logger.info << "g: " << g <<logger.end;
@@ -221,8 +228,9 @@ bool Factory::SetupEngine(IGameEngine& engine) {
     root->AddNode(sky->GetSceneNode());
     
     Handler* h = new Handler(spheres);
-    h->BindToEventSystem();
-    engine.AddModule(*h);
+    input->KeyEvent().Attach(*h);
+    engine.ProcessEvent().Attach(*h);
+
     // lighting setup
     TransformationNode* tn2 = new TransformationNode();
     tn2->Move(0,200,0);

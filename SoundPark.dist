@@ -3,9 +3,11 @@
 
 # main repository
 darcs / http://openengine.dk/code/openengine
+darcs-dev / fh.daimi.au.dk:/users/cgd/code/openengine
 
 # SoundPlayer project
 darcs /projects/SoundPark http://openengine.dk/code/projects/SoundPark
+darcs-dev /projects/SoundPark fh.daimi.au.dk:/users/cgd/code/projects/SoundPark
 
 # standard set of extensions
 darcs /extensions/SDL               http://openengine.dk/code/extensions/SDL
@@ -18,6 +20,17 @@ darcs /extensions/TGAResource       http://openengine.dk/code/extensions/TGAReso
 darcs /extensions/Bindings          http://openengine.dk/code/extensions/Bindings
 darcs /extensions/Sky	            http://openengine.dk/code/extensions/Sky
 darcs /extensions/PropertyList      http://openengine.dk/code/extensions/PropertyList
+
+darcs-dev /extensions/SDL               fh.daimi.au.dk:/users/cgd/code/extensions/SDL
+darcs-dev /extensions/OpenGLRenderer    fh.daimi.au.dk:/users/cgd/code/extensions/OpenGLRenderer
+darcs-dev /extensions/GenericHandlers   fh.daimi.au.dk:/users/cgd/code/extensions/GenericHandlers
+darcs-dev /extensions/OpenALSoundSystem fh.daimi.au.dk:/users/cgd/code/extensions/OpenALSoundSystem
+darcs-dev /extensions/Shapes            fh.daimi.au.dk:/users/cgd/code/branches/Shapes
+darcs-dev /extensions/VorbisResource    fh.daimi.au.dk:/users/cgd/code/extensions/VorbisResource
+darcs-dev /extensions/TGAResource       fh.daimi.au.dk:/users/cgd/code/extensions/TGAResource
+darcs-dev /extensions/Bindings          fh.daimi.au.dk:/users/cgd/code/extensions/Bindings
+darcs-dev /extensions/Sky               fh.daimi.au.dk:/users/cgd/code/extensions/Sky
+darcs-dev /extensions/PropertyList      fh.daimi.au.dk:/users/cgd/code/extensions/PropertyList
 
 # windows libraries
 win32 /libraries http://openengine.dk/data/libraries/boost-win32.zip

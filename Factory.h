@@ -1,18 +1,20 @@
 #ifndef _FACTORY_
 #define _FACTORY_
 
-#include <Core/IGameFactory.h>
+#include <Core/IEngine.h>
 #include <Display/Camera.h>
 #include <Display/Viewport.h>
+#include <Renderers/IRenderer.h>
 
 class OpenEngine::Scene::ISceneNode;
 
 using OpenEngine::Scene::ISceneNode;
 
+using namespace OpenEngine::Renderers;
 using namespace OpenEngine::Core;
 using namespace OpenEngine::Display;
 
-class Factory : public IGameFactory {
+class Factory {
 private:
     IFrame*    frame;
     IRenderer* renderer;
@@ -22,7 +24,7 @@ private:
 public:
     Factory();
     virtual ~Factory();
-    bool         SetupEngine(IGameEngine& engine);
+    bool         SetupEngine(IEngine& engine);
     IFrame*      GetFrame();
     IRenderer*   GetRenderer();
 

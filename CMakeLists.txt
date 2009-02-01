@@ -38,6 +38,7 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME}
   Extensions_SDL
   Extensions_GenericHandlers
   Extensions_OpenALSoundSystem
+  Extensions_OpenGLRenderer
   Extensions_VorbisResource
   Extensions_Shapes
   Extensions_PropertyList

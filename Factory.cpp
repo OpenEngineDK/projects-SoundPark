@@ -29,6 +29,7 @@
 #include <Resources/TGAResource.h>
 #include <Resources/ITextureResource.h>
 
+#include <Scene/SceneNode.h>
 #include <Scene/SphereNode.h>
 
 #include <Scene/DirectionalLightNode.h>
@@ -65,7 +66,7 @@ public:
     ~Handler() {}
     
     void Handle(KeyboardEventArg arg) {
-        if (arg.type == KeyboardEventArg::PRESS) {
+        if (arg.type == EVENT_PRESS) {
             switch (arg.sym) {
             case KEY_u: type = 1; break;
             case KEY_i: type = 2; break;
@@ -120,10 +121,10 @@ Factory::Factory() {
     frustum->SetNear(1);
     viewport->SetViewingVolume(frustum);
 
-    renderer = new Renderer();
+    renderer = new Renderer(viewport);
     renderer->ProcessEvent().Attach(*(new RenderingView(*viewport)));
     renderer->InitializeEvent().Attach(*(new TextureLoader()));
-    renderer->PreProcessEvent().Attach(*(new LightRenderer()));
+    renderer->PreProcessEvent().Attach(*(new LightRenderer(*camera)));
 }
 
 Factory::~Factory() {
@@ -159,7 +160,7 @@ bool Factory::SetupEngine(IEngine& engine) {
     input->KeyEvent().Attach(*quit_h);
 
     // Create scene root
-    SceneNode* root = new SceneNode();
+    ISceneNode* root = new SceneNode();
     this->renderer->SetSceneRoot(root);
 
     //First we set the resources directory

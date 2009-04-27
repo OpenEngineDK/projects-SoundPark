@@ -4,7 +4,7 @@
 #include <Logging/Logger.h>
 #include <Display/Frustum.h>
 #include <Display/Viewport.h>
-#include <Display/ViewingVolume.h>
+#include <Display/PerspectiveViewingVolume.h>
 #include <Scene/GeometryNode.h>
 #include <Scene/TransformationNode.h>
 #include <Resources/ResourceManager.h>
@@ -87,7 +87,8 @@ public:
         case 3: dist = 800; break;
         }
         
-        float currdist = (spheres[0][1]->GetPosition() - spheres[0][0]->GetPosition()).GetLength();
+        float currdist = (spheres[0][1]->GetPosition() - 
+                          spheres[0][0]->GetPosition()).GetLength();
         if (currdist < dist) {
             currdist += 1*dt;
         }
@@ -100,7 +101,8 @@ public:
         
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                spheres[i][j]->SetPosition(Vector<3,float>(i*currdist,0,j*currdist));
+                spheres[i][j]
+                    ->SetPosition(Vector<3,float>(i*currdist,0,j*currdist));
             }
         }
     }
@@ -111,15 +113,9 @@ Factory::Factory() {
     frame    = new SDLFrame(800, 600, 32);
     viewport = new Viewport(*frame);
         
-    camera = new Camera(*(new ViewingVolume()));
+    camera = new Camera(*(new PerspectiveViewingVolume()));
     camera->SetPosition(Vector<3,float>(0,0,0));
-    //viewport->SetViewingVolume(camera);
-
-    // frustum hack
-    Frustum* frustum = new Frustum(*camera);
-    frustum->SetFar(15000);
-    frustum->SetNear(1);
-    viewport->SetViewingVolume(frustum);
+    viewport->SetViewingVolume(camera);
 
     renderer = new Renderer(viewport);
     renderer->ProcessEvent().Attach(*(new RenderingView(*viewport)));
@@ -238,7 +234,7 @@ bool Factory::SetupEngine(IEngine& engine) {
     PointLightNode* pln = new PointLightNode();
     tn2->AddNode(pln);
     root->AddNode(tn2);
-    SphereNode* sphere2 = new SphereNode();        
+    SphereNode* sphere2 = new SphereNode();
     pln->AddNode(sphere2);
 
 

@@ -6,7 +6,7 @@ SET( PROJECT_NAME "SoundPark")
 SET( PROJECT_SOURCES
   # Add all the cpp source files here
   main.cpp
-  Factory.cpp
+#  Factory.cpp
 #  TransformationUpdater.cpp
 #  CircleUpdate.cpp
 #  WaypointUpdate.cpp

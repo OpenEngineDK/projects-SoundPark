@@ -75,17 +75,6 @@ Camera* camera;
 IRenderingView* renderingview;
 TextureLoader* textureloader;
 
-class TextureLoadOnInit
-    : public IListener<RenderingEventArg> {
-    TextureLoader& tl;
-public:
-    TextureLoadOnInit(TextureLoader& tl) : tl(tl) { }
-    void Handle(RenderingEventArg arg) {
-        if (arg.renderer.GetSceneRoot() != NULL)
-            tl.Load(*arg.renderer.GetSceneRoot());
-    }
-};
-
 
 int main(int argc, char** argv) {
     // Setup logging facilities.
@@ -142,14 +131,16 @@ int main(int argc, char** argv) {
     ResourceManager<ISoundResource>::AddPlugin(new VorbisResourcePlugin());
     ResourceManager<ITexture2D>::AddPlugin(new TGAPlugin());
         
-    ISoundSystem* openalsmgr = new OpenALSoundSystem(root, camera);
+    ISoundSystem* openalsmgr = new OpenALSoundSystem(/*root, camera*/);
+    openalsmgr->SetDevice(1);
     engine.InitializeEvent().Attach(*openalsmgr);
     engine.ProcessEvent().Attach(*openalsmgr);
     engine.DeinitializeEvent().Attach(*openalsmgr);
+    renderer->PreProcessEvent().Attach(*openalsmgr);
 
     SoundRenderer* sr = new SoundRenderer();
     renderer->PreProcessEvent().Attach(*sr);
-    string soundarray[3][3] = {{"Atmosphere Pad 01.ogg","Atmosphere Pad 02.ogg", "Atmosphere Pad 03.ogg"}, 
+    string soundarray[3][3] = {{"Atmosphere Pad 01.ogg", "Atmosphere Pad 02.ogg", "Atmosphere Pad 03.ogg"}, 
                                {"Atmosphere Pad 04.ogg", "Atmosphere Pad 05.ogg", "Atmosphere Pad 06.ogg"},
                                {"Atmosphere Pad 07.ogg", "Atmosphere Pad 08.ogg", "Atmosphere Pad 08.ogg"}};
         

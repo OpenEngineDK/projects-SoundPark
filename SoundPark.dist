@@ -2,35 +2,35 @@
 # This file describes the default OpenEngine distribution.
 
 # main repository
-darcs / http://openengine.dk/code/openengine
-darcs-dev / fh.daimi.au.dk:/users/cgd/code/openengine
+git / https://github.com/OpenEngineDK/openengine.git
+git-dev / git@github.com:OpenEngineDK/openengine.git
 
 # SoundPlayer project
-darcs /projects/SoundPark http://openengine.dk/code/projects/SoundPark
-darcs-dev /projects/SoundPark fh.daimi.au.dk:/users/cgd/code/projects/SoundPark
+git /projects/SoundPark https://github.com/OpenEngineDK/projects-SoundPark.git
+git-dev /projects/SoundPark git@github.com:OpenEngineDK/projects-SoundPark.git
 
 # standard set of extensions
-darcs /extensions/SDL               http://openengine.dk/code/extensions/SDL
-darcs /extensions/OpenGLRenderer    http://openengine.dk/code/extensions/OpenGLRenderer
-darcs /extensions/GenericHandlers   http://openengine.dk/code/extensions/GenericHandlers
-darcs /extensions/OpenALSoundSystem http://openengine.dk/code/extensions/OpenALSoundSystem
-darcs /extensions/Shapes            http://openengine.dk/code/extensions/Shapes
-darcs /extensions/VorbisResource    http://openengine.dk/code/extensions/VorbisResource
-darcs /extensions/TGAResource       http://openengine.dk/code/extensions/TGAResource
-darcs /extensions/Bindings          http://openengine.dk/code/extensions/Bindings
-darcs /extensions/Sky	            http://openengine.dk/code/extensions/Sky
-darcs /extensions/PropertyList      http://openengine.dk/code/extensions/PropertyList
+git /extensions/SDL               https://github.com/OpenEngineDK/extensions-SDL.git
+git /extensions/OpenGLRenderer    https://github.com/OpenEngineDK/extensions-OpenGLRenderer.git
+git /extensions/GenericHandlers   https://github.com/OpenEngineDK/extensions-GenericHandlers.git
+git /extensions/OpenALSoundSystem https://github.com/OpenEngineDK/extensions-OpenALSoundSystem.git
+git /extensions/Shapes            https://github.com/OpenEngineDK/extensions-Shapes.git
+git /extensions/VorbisResource    https://github.com/OpenEngineDK/extensions-VorbisResource.git
+git /extensions/TGAResource       https://github.com/OpenEngineDK/extensions-TGAResource.git
+git /extensions/Bindings          https://github.com/OpenEngineDK/extensions-Bindings.git
+git /extensions/Sky	            https://github.com/OpenEngineDK/extensions-Sky.git
+git /extensions/PropertyList      https://github.com/OpenEngineDK/extensions-PropertyList.git
 
-darcs-dev /extensions/SDL               fh.daimi.au.dk:/users/cgd/code/extensions/SDL
-darcs-dev /extensions/OpenGLRenderer    fh.daimi.au.dk:/users/cgd/code/extensions/OpenGLRenderer
-darcs-dev /extensions/GenericHandlers   fh.daimi.au.dk:/users/cgd/code/extensions/GenericHandlers
-darcs-dev /extensions/OpenALSoundSystem fh.daimi.au.dk:/users/cgd/code/extensions/OpenALSoundSystem
-darcs-dev /extensions/Shapes            fh.daimi.au.dk:/users/cgd/code/extensions/Shapes
-darcs-dev /extensions/VorbisResource    fh.daimi.au.dk:/users/cgd/code/extensions/VorbisResource
-darcs-dev /extensions/TGAResource       fh.daimi.au.dk:/users/cgd/code/extensions/TGAResource
-darcs-dev /extensions/Bindings          fh.daimi.au.dk:/users/cgd/code/extensions/Bindings
-darcs-dev /extensions/Sky               fh.daimi.au.dk:/users/cgd/code/extensions/Sky
-darcs-dev /extensions/PropertyList      fh.daimi.au.dk:/users/cgd/code/extensions/PropertyList
+git-dev /extensions/SDL               git@github.com:OpenEngineDK/extensions-SDL.git
+git-dev /extensions/OpenGLRenderer    git@github.com:OpenEngineDK/extensions-OpenGLRenderer.git
+git-dev /extensions/GenericHandlers   git@github.com:OpenEngineDK/extensions-GenericHandlers.git
+git-dev /extensions/OpenALSoundSystem git@github.com:OpenEngineDK/extensions-OpenALSoundSystem.git
+git-dev /extensions/Shapes            git@github.com:OpenEngineDK/extensions-Shapes.git
+git-dev /extensions/VorbisResource    git@github.com:OpenEngineDK/extensions-VorbisResource.git
+git-dev /extensions/TGAResource       git@github.com:OpenEngineDK/extensions-TGAResource.git
+git-dev /extensions/Bindings          git@github.com:OpenEngineDK/extensions-Bindings.git
+git-dev /extensions/Sky               git@github.com:OpenEngineDK/extensions-Sky.git
+git-dev /extensions/PropertyList      git@github.com:OpenEngineDK/extensions-PropertyList.git
 
 # windows libraries
 win32 /libraries http://openengine.dk/data/libraries/boost-win32.zip
